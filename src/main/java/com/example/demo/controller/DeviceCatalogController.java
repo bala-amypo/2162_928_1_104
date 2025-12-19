@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.entity.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
@@ -14,8 +15,18 @@ public class DeviceCatalogController {
         this.service = service;
     }
 
-    @GetMapping("/{code}")
-    public DeviceCatalogItem get(@PathVariable String code) {
-        return service.getByDeviceCode(code);
+    @PostMapping
+    public DeviceCatalogItem create(@RequestBody DeviceCatalogItem item) {
+        return service.createItem(item);
+    }
+
+    @PutMapping("/{id}/active")
+    public DeviceCatalogItem update(@PathVariable Long id, @RequestParam boolean active) {
+        return service.updateActiveStatus(id, active);
+    }
+
+    @GetMapping
+    public List<DeviceCatalogItem> getAll() {
+        return service.getAllItems();
     }
 }
