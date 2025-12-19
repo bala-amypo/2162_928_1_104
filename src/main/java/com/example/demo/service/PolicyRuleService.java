@@ -4,5 +4,10 @@ import java.util.List;
 import com.example.demo.entity.PolicyRule;
 
 public interface PolicyRuleService {
+
+    PolicyRule createRule(PolicyRule rule);
+
+    List<PolicyRule> getAllRules();
+
     List<PolicyRule> getActiveRules();
 }
