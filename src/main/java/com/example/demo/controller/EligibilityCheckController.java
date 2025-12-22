@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.entity.EligibilityCheckRecord;
 import com.example.demo.service.EligibilityCheckService;
 
@@ -15,15 +17,16 @@ public class EligibilityCheckController {
         this.service = service;
     }
 
-    @PostMapping("/validate/{employeeId}/{deviceItemId}")
-    public EligibilityCheckRecord validate(
-            @PathVariable Long employeeId,
-            @PathVariable Long deviceItemId) {
+    @PostMapping
+    public EligibilityCheckRecord checkEligibility(
+            @RequestParam Long employeeId,
+            @RequestParam Long deviceItemId) {
+
         return service.validateEligibility(employeeId, deviceItemId);
     }
 
-    @GetMapping("/employee/{employeeId}")
-    public List<EligibilityCheckRecord> getByEmployee(@PathVariable Long employeeId) {
-        return service.getChecksByEmployee(employeeId);
+    @GetMapping
+    public List<EligibilityCheckRecord> getAll() {
+        return service.getAll();
     }
 }
