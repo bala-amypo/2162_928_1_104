@@ -2,28 +2,19 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
 import com.example.demo.entity.EmployeeProfile;
+import com.example.demo.repository.EmployeeProfileRepository;
 
 @Service
-public class EmployeeProfileServiceImpl implements EmployeeProfileService {
+public class EmployeeProfileServiceImpl {
 
-    @Override
-    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+    private final EmployeeProfileRepository repository;
+
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
+        this.repository = repository;
+    }
+
+    public EmployeeProfile create(EmployeeProfile employee) {
         employee.setActive(true);
-        return employee;
-    }
-
-    @Override
-    public EmployeeProfile getEmployeeById(Long id) {
-        EmployeeProfile emp = new EmployeeProfile();
-        emp.setId(id);
-        return emp;
-    }
-
-    @Override
-    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile emp = new EmployeeProfile();
-        emp.setId(id);
-        emp.setActive(active);
-        return emp;
+        return repository.save(employee);
     }
 }
