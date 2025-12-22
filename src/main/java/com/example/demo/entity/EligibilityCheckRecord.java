@@ -15,17 +15,17 @@ public class EligibilityCheckRecord {
     private Long deviceItemId;
     private Boolean isEligible;
     private String reason;
+
     private LocalDateTime checkedAt;
+
+    @PrePersist
+    public void onCreate() {
+        checkedAt = LocalDateTime.now();
+    }
 
     public EligibilityCheckRecord() {}
 
-    @PrePersist
-    public void onCheck() {
-        this.checkedAt = LocalDateTime.now();
-    }
-
     public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
 
     public Long getEmployeeId() { return employeeId; }
     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
