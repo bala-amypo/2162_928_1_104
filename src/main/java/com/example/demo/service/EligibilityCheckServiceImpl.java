@@ -1,30 +1,30 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.EligibilityCheckRecord;
+import com.example.demo.repository.EligibilityCheckRecordRepository;
 
 @Service
-public class EligibilityCheckServiceImpl implements EligibilityCheckService {
+public class EligibilityCheckServiceImpl {
 
-    @Override
-    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
+    private final EligibilityCheckRecordRepository repository;
+
+    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
+        this.repository = repository;
+    }
+
+    public EligibilityCheckRecord validateEligibility(Long empId, Long deviceId) {
         EligibilityCheckRecord record = new EligibilityCheckRecord();
-
-        record.setEmployeeId(employeeId);
-        record.setDeviceItemId(deviceItemId);
+        record.setEmployeeId(empId);
+        record.setDeviceItemId(deviceId);
         record.setIsEligible(true);
         record.setReason("Eligible");
 
-
-        return record;
+        return repository.save(record); // 🔥 IMPORTANT
     }
 
-    @Override
-    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
-        return new ArrayList<>();
+    public List<EligibilityCheckRecord> getAll() {
+        return repository.findAll();
     }
 }
