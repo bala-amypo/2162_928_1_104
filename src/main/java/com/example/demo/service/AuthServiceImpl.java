@@ -1,32 +1,32 @@
 package com.example.demo.service;
 
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.User;
+
+import com.example.demo.entity.UserAccount;
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.repository.UserAccountRepository;
 
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    @Override
-    public User register(User user) {
-        // TEMP LOGIC (no DB yet)
-        user.setId(1L);
-        user.setActive(true);
-        user.setRole("USER");
-        return user;
+    private final UserAccountRepository userRepo;
+
+    public AuthServiceImpl(UserAccountRepository userRepo) {
+        this.userRepo = userRepo;
     }
 
     @Override
-    public User login(User user) {
-        // TEMP LOGIC
-        if ("admin@gmail.com".equals(user.getEmail())
-                && "admin".equals(user.getPassword())) {
-
-            user.setId(1L);
-            user.setRole("ADMIN");
-            user.setActive(true);
-            return user;
+    public UserAccount register(UserAccount user) {
+        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
+            throw new BadRequestException("email already exists");
         }
+        user.setActive(true);
+        return userRepo.save(user);
+    }
 
-        throw new RuntimeException("Invalid credentials");
+    @Override
+    public UserAccount login(String email, String password) {
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException("invalid credentials"));
     }
 }

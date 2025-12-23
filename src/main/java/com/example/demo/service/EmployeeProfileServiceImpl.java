@@ -1,20 +1,34 @@
 package com.example.demo.service;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.EmployeeProfile;
-import com.example.demo.repository.EmployeeProfileRepository;
+
+import com.example.demo.entity.EligibilityCheckRecord;
+import com.example.demo.repository.EligibilityCheckRecordRepository;
 
 @Service
-public class EmployeeProfileServiceImpl {
+public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EmployeeProfileRepository repository;
+    private final EligibilityCheckRecordRepository repo;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
-        this.repository = repository;
+    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
+        this.repo = repo;
     }
 
-    public EmployeeProfile create(EmployeeProfile employee) {
-        employee.setActive(true);
-        return repository.save(employee);
+    @Override
+    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
+        EligibilityCheckRecord record = new EligibilityCheckRecord();
+        record.setEmployeeId(employeeId);
+        record.setDeviceItemId(deviceItemId);
+        record.setIsEligible(true);
+        record.setCheckedAt(LocalDateTime.now());
+        return repo.save(record);
+    }
+
+    @Override
+    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 }
