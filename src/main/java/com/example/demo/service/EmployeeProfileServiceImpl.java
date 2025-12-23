@@ -1,43 +1,51 @@
 package com.example.demo.service;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.EmployeeProfile;
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.EmployeeProfileRepository;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repo;
+    private final EmployeeProfileRepository repository;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
-        this.repo = repo;
+    // ✅ Constructor Injection (MANDATORY as per spec)
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
+        this.repository = repository;
     }
 
+    // ✅ Create Employee
     @Override
     public EmployeeProfile createEmployee(EmployeeProfile employee) {
+
+        // Duplicate employeeId check
+        if (repository.findByEmployeeId(employee.getEmployeeId()).isPresent()) {
+            throw new BadRequestException("EmployeeId already exists");
+        }
+
         employee.setActive(true);
-        return repo.save(employee);
+        employee.setCreatedAt(LocalDateTime.now());
+
+        return repository.save(employee);
     }
 
+    // ✅ Get Employee by DB ID
     @Override
     public EmployeeProfile getEmployeeById(Long id) {
-        return repo.findById(id)
+        return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
     }
 
-    @Override
-    public List<EmployeeProfile> getAllEmployees() {
-        return repo.findAll();
-    }
-
+    // ✅ Activate / Deactivate Employee
     @Override
     public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
-        EmployeeProfile emp = getEmployeeById(id);
-        emp.setActive(active);
-        return repo.save(emp);
+        EmployeeProfile employee = getEmployeeById(id);
+        employee.setActive(active);
+        return repository.save(employee);
     }
 }
