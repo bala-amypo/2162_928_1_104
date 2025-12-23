@@ -13,19 +13,16 @@ public class DeviceCatalogController {
 
     private final DeviceCatalogService service;
 
-    // ✅ Constructor Injection
     public DeviceCatalogController(DeviceCatalogService service) {
         this.service = service;
     }
 
-    // ✅ POST – Create Device Catalog Item
     @PostMapping
     public DeviceCatalogItem createDevice(@RequestBody DeviceCatalogItem item) {
         return service.createItem(item);
     }
 
-    // ✅ PUT – Activate / Deactivate Device
-    // Example: PUT /api/devices/1/active?active=false
+    
     @PutMapping("/{id}/active")
     public DeviceCatalogItem updateDeviceStatus(
             @PathVariable Long id,
