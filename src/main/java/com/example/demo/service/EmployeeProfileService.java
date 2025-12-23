@@ -1,11 +1,15 @@
 package com.example.demo.service;
 
 import java.util.List;
-import com.example.demo.entity.EligibilityCheckRecord;
+import com.example.demo.entity.EmployeeProfile;
 
-public interface EligibilityCheckService {
+public interface EmployeeProfileService {
 
-    EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId);
+    EmployeeProfile createEmployee(EmployeeProfile employee);
 
-    List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId);
+    EmployeeProfile getEmployeeById(Long id);
+
+    List<EmployeeProfile> getAllEmployees();
+
+    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }

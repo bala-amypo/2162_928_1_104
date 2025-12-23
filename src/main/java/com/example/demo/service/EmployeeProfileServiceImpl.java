@@ -1,34 +1,43 @@
 package com.example.demo.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.EligibilityCheckRecord;
-import com.example.demo.repository.EligibilityCheckRecordRepository;
+import com.example.demo.entity.EmployeeProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.EmployeeProfileRepository;
 
 @Service
-public class EligibilityCheckServiceImpl implements EligibilityCheckService {
+public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EligibilityCheckRecordRepository repo;
+    private final EmployeeProfileRepository repo;
 
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
         this.repo = repo;
     }
 
     @Override
-    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
-        EligibilityCheckRecord record = new EligibilityCheckRecord();
-        record.setEmployeeId(employeeId);
-        record.setDeviceItemId(deviceItemId);
-        record.setIsEligible(true);
-        record.setCheckedAt(LocalDateTime.now());
-        return repo.save(record);
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        employee.setActive(true);
+        return repo.save(employee);
     }
 
     @Override
-    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
-        return repo.findByEmployeeId(employeeId);
+    public EmployeeProfile getEmployeeById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found"));
+    }
+
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return repo.findAll();
+    }
+
+    @Override
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile emp = getEmployeeById(id);
+        emp.setActive(active);
+        return repo.save(emp);
     }
 }
