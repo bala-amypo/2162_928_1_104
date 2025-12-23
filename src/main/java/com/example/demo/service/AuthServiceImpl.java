@@ -9,24 +9,24 @@ import com.example.demo.repository.UserAccountRepository;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-    private final UserAccountRepository userRepo;
+    private final UserAccountRepository repo;
 
-    public AuthServiceImpl(UserAccountRepository userRepo) {
-        this.userRepo = userRepo;
+    public AuthServiceImpl(UserAccountRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public UserAccount register(UserAccount user) {
-        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
-            throw new BadRequestException("email already exists");
+        if (repo.findByEmail(user.getEmail()).isPresent()) {
+            throw new BadRequestException("Email already exists");
         }
         user.setActive(true);
-        return userRepo.save(user);
+        return repo.save(user);
     }
 
     @Override
-    public UserAccount login(String email, String password) {
-        return userRepo.findByEmail(email)
-                .orElseThrow(() -> new BadRequestException("invalid credentials"));
+    public UserAccount login(UserAccount user) {
+        return repo.findByEmail(user.getEmail())
+                .orElseThrow(() -> new BadRequestException("Invalid credentials"));
     }
 }

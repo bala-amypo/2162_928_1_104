@@ -6,5 +6,5 @@ public interface AuthService {
 
     UserAccount register(UserAccount user);
 
-    UserAccount login(String email, String password);
+    UserAccount login(UserAccount user);
 }
