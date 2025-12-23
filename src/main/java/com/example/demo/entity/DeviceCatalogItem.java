@@ -30,11 +30,9 @@ public class DeviceCatalogItem {
     @Column(nullable = false)
     private Boolean active = true;
 
-    // ✅ Required by JPA
     public DeviceCatalogItem() {
     }
 
-    // ---------- Getters & Setters ----------
 
     public Long getId() {
         return id;

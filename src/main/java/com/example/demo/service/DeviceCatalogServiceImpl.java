@@ -14,7 +14,6 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
     private final DeviceCatalogItemRepository repository;
 
-    // ✅ Constructor injection
     public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
         this.repository = repository;
     }
@@ -23,7 +22,6 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
     public DeviceCatalogItem createItem(DeviceCatalogItem item) {
         item.setActive(true);
 
-        // 🔥 THIS LINE WAS MISSING
         return repository.save(item);
     }
 

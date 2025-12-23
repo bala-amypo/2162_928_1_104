@@ -17,11 +17,10 @@ public class UserAccount {
 
     private String passwordHash;
 
-    private String role; // ADMIN / IT_OPERATOR / AUDITOR
+    private String role; 
 
     private Boolean active;
 
-    // getters & setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
