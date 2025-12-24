@@ -1,19 +1,34 @@
 package com.example.demo.service;
 
 import java.util.List;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entity.EligibilityCheckRecord;
-import com.example.demo.repository.EligibilityCheckRecordRepository;
+import com.example.demo.repository.*;
 
 @Service
+@Transactional
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EligibilityCheckRecordRepository repository;
+    private final EmployeeProfileRepository employeeRepo;
+    private final DeviceCatalogItemRepository deviceRepo;
+    private final IssuedDeviceRecordRepository issuedRepo;
+    private final PolicyRuleRepository policyRepo;
+    private final EligibilityCheckRecordRepository recordRepo;
 
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
-        this.repository = repository;
+    public EligibilityCheckServiceImpl(
+            EmployeeProfileRepository employeeRepo,
+            DeviceCatalogItemRepository deviceRepo,
+            IssuedDeviceRecordRepository issuedRepo,
+            PolicyRuleRepository policyRepo,
+            EligibilityCheckRecordRepository recordRepo) {
+
+        this.employeeRepo = employeeRepo;
+        this.deviceRepo = deviceRepo;
+        this.issuedRepo = issuedRepo;
+        this.policyRepo = policyRepo;
+        this.recordRepo = recordRepo;
     }
 
     @Override
@@ -23,12 +38,11 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         record.setDeviceItemId(deviceItemId);
         record.setIsEligible(true);
         record.setReason("Eligible");
-
-        return repository.save(record);
+        return recordRepo.save(record);
     }
 
     @Override
     public List<EligibilityCheckRecord> getAll() {
-        return repository.findAll();
+        return recordRepo.findAll();
     }
 }
