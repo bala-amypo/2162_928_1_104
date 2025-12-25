@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface EmployeeProfileRepository extends JpaRepository<EmployeeProfile, Long> {
 
-    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
+    // REQUIRED BY TESTS
+    Optional<EmployeeProfile> findByEmail(String email);
 }
