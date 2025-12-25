@@ -9,10 +9,16 @@ public class PolicyRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String ruleCode;
+
     private String appliesToRole;
     private String appliesToDepartment;
     private int maxDevicesAllowed;
+
+    private boolean active = true;
+
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -24,6 +30,10 @@ public class PolicyRule {
 
     public String getRuleCode() {
         return ruleCode;
+    }
+
+    public void setRuleCode(String ruleCode) {
+        this.ruleCode = ruleCode;
     }
 
     public String getAppliesToRole() {
@@ -48,5 +58,13 @@ public class PolicyRule {
 
     public void setMaxDevicesAllowed(int maxDevicesAllowed) {
         this.maxDevicesAllowed = maxDevicesAllowed;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
