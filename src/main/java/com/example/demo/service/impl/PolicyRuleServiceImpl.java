@@ -30,7 +30,7 @@ public class PolicyRuleServiceImpl implements PolicyRuleService {
     public List<PolicyRule> getActiveRules() {
         return repo.findAll()
                 .stream()
-                .filter(rule -> Boolean.TRUE.equals(rule.getActive()))
+                .filter(rule -> rule.getActive() != null && rule.getActive())
                 .toList();
     }
 }
