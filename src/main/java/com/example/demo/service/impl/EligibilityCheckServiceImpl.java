@@ -16,7 +16,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         this.repository = repository;
     }
 
-    // NOT in interface → NO @Override
+    // helper method (not in interface)
     public EligibilityCheckRecord save(EligibilityCheckRecord record) {
         return repository.save(record);
     }
@@ -27,15 +27,15 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
+    public List<EligibilityCheckRecord> getChecksByEmployee(long employeeId) {
         return repository.findByEmployeeId(employeeId);
     }
 
-    // NOT in interface → NO @Override
-    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceId) {
+    @Override
+    public EligibilityCheckRecord validateEligibility(long employeeId, long deviceItemId) {
         EligibilityCheckRecord record = new EligibilityCheckRecord();
         record.setEmployeeId(employeeId);
-        record.setDeviceId(deviceId);
+        record.setDeviceId(deviceItemId);
         record.setIsEligible(true);
         return repository.save(record);
     }
