@@ -9,11 +9,13 @@ public class PolicyRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String ruleCode;
 
     private String appliesToRole;
+
     private String appliesToDepartment;
+
     private int maxDevicesAllowed;
 
     private boolean active = true;

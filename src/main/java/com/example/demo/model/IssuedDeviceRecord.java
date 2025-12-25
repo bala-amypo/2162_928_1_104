@@ -14,7 +14,7 @@ public class IssuedDeviceRecord {
 
     private Long deviceItemId;
 
-    private String status; // ISSUED / RETURNED
+    private String status;
 
     private LocalDateTime issuedDate;
 

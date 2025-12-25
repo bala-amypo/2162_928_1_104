@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class EmployeeProfile {
@@ -9,7 +10,7 @@ public class EmployeeProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // IMPORTANT: tests expect String employeeId (not Long)
+    @Column(unique = true)
     private String employeeId;
 
     private String fullName;
@@ -21,6 +22,8 @@ public class EmployeeProfile {
     private String jobRole;
 
     private Boolean active = true;
+
+    private LocalDateTime createdAt;
 
     // ===== GETTERS & SETTERS =====
 
@@ -78,5 +81,13 @@ public class EmployeeProfile {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
