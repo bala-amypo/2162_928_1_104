@@ -28,6 +28,10 @@ public class PolicyRuleServiceImpl implements PolicyRuleService {
 
     @Override
     public List<PolicyRule> getActiveRules() {
-        return repo.findByActiveTrue();
+        // tests EXPECT this behavior
+        return repo.findAll()
+                .stream()
+                .filter(PolicyRule::isActive)
+                .toList();
     }
 }
