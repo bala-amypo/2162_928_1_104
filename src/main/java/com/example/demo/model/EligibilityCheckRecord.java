@@ -11,7 +11,7 @@ public class EligibilityCheckRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceId;
+    private Long deviceItemId;
 
     private Boolean isEligible;
 
@@ -38,22 +38,20 @@ public class EligibilityCheckRecord {
         this.employeeId = employeeId;
     }
 
-    public Long getDeviceId() {
-        return deviceId;
+    public Long getDeviceItemId() {
+        return deviceItemId;
     }
 
-    public void setDeviceId(Long deviceId) {
-        this.deviceId = deviceId;
+    public void setDeviceItemId(Long deviceItemId) {
+        this.deviceItemId = deviceItemId;
     }
 
-    // 🔴 REQUIRED EXACT NAME
     public Boolean getIsEligible() {
         return isEligible;
     }
 
-    // 🔴 REQUIRED EXACT NAME
-    public void setIsEligible(Boolean eligible) {
-        isEligible = eligible;
+    public void setIsEligible(Boolean isEligible) {
+        this.isEligible = isEligible;
     }
 
     public String getReason() {

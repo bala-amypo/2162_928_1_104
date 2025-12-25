@@ -6,10 +6,12 @@ import java.util.List;
 
 public interface EmployeeProfileService {
 
-    EmployeeProfile save(EmployeeProfile profile);
+    // REQUIRED BY TESTS
+    EmployeeProfile createEmployee(EmployeeProfile employee);
+
+    EmployeeProfile updateEmployeeStatus(long employeeId, boolean active);
+
+    EmployeeProfile getEmployeeById(long id);
 
     List<EmployeeProfile> getAllEmployees();
-
-    // REQUIRED BY TESTS
-    EmployeeProfile getEmployeeById(long id);
 }
