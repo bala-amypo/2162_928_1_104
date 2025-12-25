@@ -10,10 +10,10 @@ import java.util.List;
 @Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EligibilityCheckRecordRepository repo;
+    private final EligibilityCheckRecordRepository repository;
 
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
-        this.repo = repo;
+    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -21,13 +21,16 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         EligibilityCheckRecord record = new EligibilityCheckRecord();
         record.setEmployeeId(employeeId);
         record.setDeviceItemId(deviceItemId);
-        record.setIsEligible(true);
-        record.setReason("ELIGIBLE");
-        return repo.save(record);
+
+        // Simple eligibility logic (can be expanded)
+        record.setEligible(true);   // ✅ correct setter
+        record.setReason("Eligible");
+
+        return repository.save(record);
     }
 
     @Override
     public List<EligibilityCheckRecord> getAll() {
-        return repo.findAll();
+        return repository.findAll();
     }
 }

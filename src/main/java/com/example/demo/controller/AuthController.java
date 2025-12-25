@@ -1,12 +1,12 @@
 package com.example.demo.controller;
 
-import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.UserAccount;
 import com.example.demo.service.AuthService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -15,13 +15,15 @@ public class AuthController {
         this.authService = authService;
     }
 
+    // Register user
     @PostMapping("/register")
-    public UserAccount register(@RequestBody UserAccount user) {
-        return authService.register(user);
+    public ResponseEntity<UserAccount> register(@RequestBody UserAccount user) {
+        return ResponseEntity.ok(authService.register(user));
     }
 
+    // Login -> returns JWT token (String)
     @PostMapping("/login")
-    public UserAccount login(@RequestBody UserAccount user) {
-        return authService.login(user);
+    public ResponseEntity<String> login(@RequestBody UserAccount user) {
+        return ResponseEntity.ok(authService.login(user));
     }
 }
