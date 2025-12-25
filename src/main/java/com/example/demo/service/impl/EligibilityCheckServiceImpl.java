@@ -10,19 +10,24 @@ import java.util.List;
 @Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
-    private final EligibilityCheckRecordRepository repository;
+    private final EligibilityCheckRecordRepository repo;
 
-    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repository) {
-        this.repository = repository;
+    public EligibilityCheckServiceImpl(EligibilityCheckRecordRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public EligibilityCheckRecord save(EligibilityCheckRecord record) {
-        return repository.save(record);
+    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
+        EligibilityCheckRecord record = new EligibilityCheckRecord();
+        record.setEmployeeId(employeeId);
+        record.setDeviceItemId(deviceItemId);
+        record.setIsEligible(true);
+        record.setReason("ELIGIBLE");
+        return repo.save(record);
     }
 
     @Override
     public List<EligibilityCheckRecord> getAll() {
-        return repository.findAll();
+        return repo.findAll();
     }
 }

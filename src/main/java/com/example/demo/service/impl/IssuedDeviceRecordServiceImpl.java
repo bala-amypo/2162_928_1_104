@@ -10,19 +10,19 @@ import java.util.List;
 @Service
 public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService {
 
-    private final IssuedDeviceRecordRepository repository;
+    private final IssuedDeviceRecordRepository repo;
 
-    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repository) {
-        this.repository = repository;
+    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public IssuedDeviceRecord save(IssuedDeviceRecord record) {
-        return repository.save(record);
+    public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
+        return repo.save(record);
     }
 
     @Override
     public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
-        return repository.findByEmployeeId(employeeId);
+        return repo.findByEmployeeId(employeeId);
     }
 }

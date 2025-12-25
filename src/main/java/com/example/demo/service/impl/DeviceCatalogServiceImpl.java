@@ -10,32 +10,26 @@ import java.util.List;
 @Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repository;
+    private final DeviceCatalogItemRepository repo;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repository) {
-        this.repository = repository;
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public DeviceCatalogItem save(DeviceCatalogItem item) {
-        return repository.save(item);
+    public DeviceCatalogItem createItem(DeviceCatalogItem item) {
+        return repo.save(item);
     }
 
     @Override
     public List<DeviceCatalogItem> getAllItems() {
-        return repository.findAll();
+        return repo.findAll();
     }
 
     @Override
-    public DeviceCatalogItem getById(Long id) {
-        return repository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void deactivate(Long id) {
-        repository.findById(id).ifPresent(item -> {
-            item.setActive(false);
-            repository.save(item);
-        });
+    public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
+        DeviceCatalogItem item = repo.findById(id).orElseThrow();
+        item.setActive(active);
+        return repo.save(item);
     }
 }

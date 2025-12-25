@@ -10,27 +10,26 @@ import java.util.List;
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
-    private final EmployeeProfileRepository repository;
+    private final EmployeeProfileRepository repo;
 
-    public EmployeeProfileServiceImpl(EmployeeProfileRepository repository) {
-        this.repository = repository;
+    public EmployeeProfileServiceImpl(EmployeeProfileRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public EmployeeProfile save(EmployeeProfile profile) {
-        return repository.save(profile);
+    public EmployeeProfile createEmployee(EmployeeProfile employee) {
+        return repo.save(employee);
     }
 
     @Override
-    public List<EmployeeProfile> getAll() {
-        return repository.findAll();
+    public List<EmployeeProfile> getAllEmployees() {
+        return repo.findAll();
     }
 
     @Override
-    public void updateEmployeeStatus(Long id, boolean active) {
-        repository.findById(id).ifPresent(emp -> {
-            emp.setActive(active);
-            repository.save(emp);
-        });
+    public EmployeeProfile updateEmployeeStatus(Long id, boolean active) {
+        EmployeeProfile emp = repo.findById(id).orElseThrow();
+        emp.setActive(active);
+        return repo.save(emp);
     }
 }
