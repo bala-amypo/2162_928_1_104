@@ -11,9 +11,12 @@ public class EligibilityCheckRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceItemId;
-    private boolean isEligible;
+    private Long deviceId;
+
+    private Boolean isEligible;
+
     private String reason;
+
     private LocalDateTime checkedAt;
 
     @PrePersist
@@ -35,19 +38,21 @@ public class EligibilityCheckRecord {
         this.employeeId = employeeId;
     }
 
-    public Long getDeviceItemId() {
-        return deviceItemId;
+    public Long getDeviceId() {
+        return deviceId;
     }
 
-    public void setDeviceItemId(Long deviceItemId) {
-        this.deviceItemId = deviceItemId;
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
     }
 
-    public boolean isEligible() {
+    // 🔴 REQUIRED EXACT NAME
+    public Boolean getIsEligible() {
         return isEligible;
     }
 
-    public void setEligible(boolean eligible) {
+    // 🔴 REQUIRED EXACT NAME
+    public void setIsEligible(Boolean eligible) {
         isEligible = eligible;
     }
 
@@ -61,9 +66,5 @@ public class EligibilityCheckRecord {
 
     public LocalDateTime getCheckedAt() {
         return checkedAt;
-    }
-
-    public void setCheckedAt(LocalDateTime checkedAt) {
-        this.checkedAt = checkedAt;
     }
 }
