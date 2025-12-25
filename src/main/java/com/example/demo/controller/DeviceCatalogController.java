@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entity.DeviceCatalogItem;
+import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.service.DeviceCatalogService;
 
 @RestController

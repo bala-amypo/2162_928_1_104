@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entity.EmployeeProfile;
+import com.example.demo.model.EmployeeProfile;
 import com.example.demo.service.EmployeeProfileService;
 
 @RestController
