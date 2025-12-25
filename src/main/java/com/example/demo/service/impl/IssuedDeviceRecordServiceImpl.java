@@ -26,7 +26,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         return repository.findByEmployeeId(employeeId);
     }
 
-    @Override
+    // REMOVE @Override (not in interface)
     public void returnDevice(Long recordId) {
         repository.deleteById(recordId);
     }
