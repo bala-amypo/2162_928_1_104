@@ -9,4 +9,7 @@ public interface EmployeeProfileRepository extends JpaRepository<EmployeeProfile
 
     // REQUIRED BY TESTS
     Optional<EmployeeProfile> findByEmail(String email);
+
+    // REQUIRED BY TESTS (YES, STRING – test uses String)
+    Optional<EmployeeProfile> findByEmployeeId(String employeeId);
 }
