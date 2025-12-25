@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.EligibilityCheckRecord;
+import com.example.demo.model.EligibilityCheckRecord;
 import java.util.List;
 
 public interface EligibilityCheckService {

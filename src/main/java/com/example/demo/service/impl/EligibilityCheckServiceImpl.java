@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.EligibilityCheckRecord;
+import com.example.demo.model.EligibilityCheckRecord;
 import com.example.demo.repository.EligibilityCheckRecordRepository;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
