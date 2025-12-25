@@ -16,19 +16,26 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
-    // 🔴 FIXED: use save(), NOT createEmployee()
     @PostMapping
-    public EmployeeProfile createEmployee(@RequestBody EmployeeProfile profile) {
-        return service.save(profile);
-    }
-
-    @GetMapping
-    public List<EmployeeProfile> getAllEmployees() {
-        return service.getAllEmployees();
+    public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
+        return service.createEmployee(employee);
     }
 
     @GetMapping("/{id}")
-    public EmployeeProfile getEmployee(@PathVariable long id) {
+    public EmployeeProfile getById(@PathVariable long id) {
         return service.getEmployeeById(id);
+    }
+
+    @GetMapping
+    public List<EmployeeProfile> getAll() {
+        return service.getAllEmployees();
+    }
+
+    @PutMapping("/{id}/status")
+    public EmployeeProfile updateStatus(
+            @PathVariable long id,
+            @RequestParam boolean active
+    ) {
+        return service.updateEmployeeStatus(id, active);
     }
 }

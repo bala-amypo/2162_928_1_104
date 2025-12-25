@@ -17,11 +17,12 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     }
 
     @Override
-    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceId) {
+    public EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId) {
         EligibilityCheckRecord rec = new EligibilityCheckRecord();
         rec.setEmployeeId(employeeId);
-        rec.setDeviceId(deviceId);
-        rec.setIsEligible(true);   // ✅ correct name
+        rec.setDeviceItemId(deviceItemId);
+        rec.setIsEligible(true);
+        rec.setReason("ELIGIBLE");
         return repository.save(rec);
     }
 
@@ -30,7 +31,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         return repository.findAll();
     }
 
-    // NOT in interface → NO @Override
+    @Override
     public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
         return repository.findByEmployeeId(employeeId);
     }
