@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class IssuedDeviceRecord {
@@ -10,7 +11,16 @@ public class IssuedDeviceRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceId;
+
+    private Long deviceItemId;
+
+    private String status; // ISSUED / RETURNED
+
+    private LocalDateTime issuedDate;
+
+    private LocalDateTime returnedDate;
+
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -24,7 +34,39 @@ public class IssuedDeviceRecord {
         return employeeId;
     }
 
-    public Long getDeviceId() {
-        return deviceId;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public Long getDeviceItemId() {
+        return deviceItemId;
+    }
+
+    public void setDeviceItemId(Long deviceItemId) {
+        this.deviceItemId = deviceItemId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(LocalDateTime issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public LocalDateTime getReturnedDate() {
+        return returnedDate;
+    }
+
+    public void setReturnedDate(LocalDateTime returnedDate) {
+        this.returnedDate = returnedDate;
     }
 }
