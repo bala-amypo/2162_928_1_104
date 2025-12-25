@@ -1,9 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.EligibilityCheckRecord;
+import com.example.demo.entity.EligibilityCheckRecord;
 import com.example.demo.repository.EligibilityCheckRecordRepository;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EligibilityCheckServiceImpl implements EligibilityCheckService {
@@ -17,5 +19,10 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     @Override
     public EligibilityCheckRecord save(EligibilityCheckRecord record) {
         return repository.save(record);
+    }
+
+    @Override
+    public List<EligibilityCheckRecord> getAll() {
+        return repository.findAll();
     }
 }

@@ -1,11 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.EmployeeProfile;
+import com.example.demo.entity.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
@@ -22,7 +22,15 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public Optional<EmployeeProfile> findByEmployeeId(String employeeId) {
-        return repository.findByEmployeeId(employeeId);
+    public List<EmployeeProfile> getAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public void updateEmployeeStatus(Long id, boolean active) {
+        repository.findById(id).ifPresent(emp -> {
+            emp.setActive(active);
+            repository.save(emp);
+        });
     }
 }

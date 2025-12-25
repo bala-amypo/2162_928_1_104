@@ -1,11 +1,9 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.entity.EligibilityCheckRecord;
+import java.util.List;
 
 public interface EligibilityCheckService {
-
-    EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId);
-
+    EligibilityCheckRecord save(EligibilityCheckRecord record);
     List<EligibilityCheckRecord> getAll();
 }

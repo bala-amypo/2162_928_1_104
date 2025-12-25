@@ -1,12 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.DeviceCatalogItem;
+import com.example.demo.entity.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
@@ -23,12 +22,20 @@ public class DeviceCatalogServiceImpl implements DeviceCatalogService {
     }
 
     @Override
-    public Optional<DeviceCatalogItem> findById(Long id) {
-        return repository.findById(id);
+    public List<DeviceCatalogItem> getAllItems() {
+        return repository.findAll();
     }
 
     @Override
-    public List<DeviceCatalogItem> findAll() {
-        return repository.findAll();
+    public DeviceCatalogItem getById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deactivate(Long id) {
+        repository.findById(id).ifPresent(item -> {
+            item.setActive(false);
+            repository.save(item);
+        });
     }
 }

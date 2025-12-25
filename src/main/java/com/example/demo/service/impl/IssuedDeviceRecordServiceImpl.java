@@ -1,6 +1,6 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.IssuedDeviceRecord;
+import com.example.demo.entity.IssuedDeviceRecord;
 import com.example.demo.repository.IssuedDeviceRecordRepository;
 import com.example.demo.service.IssuedDeviceRecordService;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     }
 
     @Override
-    public List<IssuedDeviceRecord> findByEmployeeId(Long employeeId) {
+    public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
         return repository.findByEmployeeId(employeeId);
     }
 }
