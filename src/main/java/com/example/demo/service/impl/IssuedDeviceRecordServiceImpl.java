@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.IssuedDeviceRecord;
-import com.example.demo.repository.*;
+import com.example.demo.repository.IssuedDeviceRecordRepository;
 import com.example.demo.service.IssuedDeviceRecordService;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
 
     private final IssuedDeviceRecordRepository repo;
 
-    public IssuedDeviceRecordServiceImpl(
-            IssuedDeviceRecordRepository repo,
-            EmployeeProfileRepository employeeRepo,
-            DeviceCatalogItemRepository deviceRepo
-    ) {
+    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository repo) {
         this.repo = repo;
     }
 
@@ -39,5 +35,10 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     @Override
     public List<IssuedDeviceRecord> getAll() {
         return repo.findAll();
+    }
+
+    @Override
+    public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
+        return repo.findByEmployeeId(employeeId);
     }
 }

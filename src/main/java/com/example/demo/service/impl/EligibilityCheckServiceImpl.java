@@ -1,7 +1,7 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.model.EligibilityCheckRecord;
-import com.example.demo.repository.*;
+import com.example.demo.repository.EligibilityCheckRecordRepository;
 import com.example.demo.service.EligibilityCheckService;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,6 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     private final EligibilityCheckRecordRepository eligibilityRepo;
 
     public EligibilityCheckServiceImpl(
-            EmployeeProfileRepository employeeRepo,
-            DeviceCatalogItemRepository deviceRepo,
-            IssuedDeviceRecordRepository issuedRepo,
-            PolicyRuleRepository policyRepo,
             EligibilityCheckRecordRepository eligibilityRepo
     ) {
         this.eligibilityRepo = eligibilityRepo;
@@ -37,5 +33,10 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     @Override
     public List<EligibilityCheckRecord> getAll() {
         return eligibilityRepo.findAll();
+    }
+
+    @Override
+    public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
+        return eligibilityRepo.findByEmployeeId(employeeId);
     }
 }
