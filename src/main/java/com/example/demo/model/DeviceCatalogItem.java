@@ -9,7 +9,18 @@ public class DeviceCatalogItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean active = true;
+    @Column(unique = true, nullable = false)
+    private String deviceCode;
+
+    private String deviceType;
+
+    private String model;
+
+    private int maxAllowedPerEmployee;
+
+    private boolean active = true;
+
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
@@ -19,11 +30,43 @@ public class DeviceCatalogItem {
         this.id = id;
     }
 
-    public Boolean getActive() {
+    public String getDeviceCode() {
+        return deviceCode;
+    }
+
+    public void setDeviceCode(String deviceCode) {
+        this.deviceCode = deviceCode;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getMaxAllowedPerEmployee() {
+        return maxAllowedPerEmployee;
+    }
+
+    public void setMaxAllowedPerEmployee(int maxAllowedPerEmployee) {
+        this.maxAllowedPerEmployee = maxAllowedPerEmployee;
+    }
+
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }
