@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface EligibilityCheckService {
 
-    EligibilityCheckRecord validateEligibility(long employeeId, long deviceItemId);
+    EligibilityCheckRecord validateEligibility(Long employeeId, Long deviceItemId);
 
     List<EligibilityCheckRecord> getAll();
 
-    List<EligibilityCheckRecord> getChecksByEmployee(long employeeId);
+    List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId);
 }
