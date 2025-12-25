@@ -11,62 +11,28 @@ public class IssuedDeviceRecord {
     private Long id;
 
     private Long employeeId;
-
     private Long deviceItemId;
-
     private String status;
-
-    private LocalDateTime issuedDate;
-
+    private LocalDateTime issuedAt;
     private LocalDateTime returnedDate;
 
     // ===== GETTERS & SETTERS =====
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Long getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
-    public Long getEmployeeId() {
-        return employeeId;
-    }
+    public Long getDeviceItemId() { return deviceItemId; }
+    public void setDeviceItemId(Long deviceItemId) { this.deviceItemId = deviceItemId; }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public Long getDeviceItemId() {
-        return deviceItemId;
-    }
+    public LocalDateTime getIssuedAt() { return issuedAt; }
+    public void setIssuedAt(LocalDateTime issuedAt) { this.issuedAt = issuedAt; }
 
-    public void setDeviceItemId(Long deviceItemId) {
-        this.deviceItemId = deviceItemId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getIssuedDate() {
-        return issuedDate;
-    }
-
-    public void setIssuedDate(LocalDateTime issuedDate) {
-        this.issuedDate = issuedDate;
-    }
-
-    public LocalDateTime getReturnedDate() {
-        return returnedDate;
-    }
-
-    public void setReturnedDate(LocalDateTime returnedDate) {
-        this.returnedDate = returnedDate;
-    }
+    public LocalDateTime getReturnedDate() { return returnedDate; }
+    public void setReturnedDate(LocalDateTime returnedDate) { this.returnedDate = returnedDate; }
 }
