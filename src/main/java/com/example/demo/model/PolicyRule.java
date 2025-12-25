@@ -9,64 +9,29 @@ public class PolicyRule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String ruleCode;
-
     private String appliesToRole;
-
     private String appliesToDepartment;
-
     private int maxDevicesAllowed;
-
     private boolean active = true;
 
     // ===== GETTERS & SETTERS =====
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getRuleCode() { return ruleCode; }
+    public void setRuleCode(String ruleCode) { this.ruleCode = ruleCode; }
 
-    public String getRuleCode() {
-        return ruleCode;
-    }
+    public String getAppliesToRole() { return appliesToRole; }
+    public void setAppliesToRole(String appliesToRole) { this.appliesToRole = appliesToRole; }
 
-    public void setRuleCode(String ruleCode) {
-        this.ruleCode = ruleCode;
-    }
+    public String getAppliesToDepartment() { return appliesToDepartment; }
+    public void setAppliesToDepartment(String appliesToDepartment) { this.appliesToDepartment = appliesToDepartment; }
 
-    public String getAppliesToRole() {
-        return appliesToRole;
-    }
+    public int getMaxDevicesAllowed() { return maxDevicesAllowed; }
+    public void setMaxDevicesAllowed(int maxDevicesAllowed) { this.maxDevicesAllowed = maxDevicesAllowed; }
 
-    public void setAppliesToRole(String appliesToRole) {
-        this.appliesToRole = appliesToRole;
-    }
-
-    public String getAppliesToDepartment() {
-        return appliesToDepartment;
-    }
-
-    public void setAppliesToDepartment(String appliesToDepartment) {
-        this.appliesToDepartment = appliesToDepartment;
-    }
-
-    public int getMaxDevicesAllowed() {
-        return maxDevicesAllowed;
-    }
-
-    public void setMaxDevicesAllowed(int maxDevicesAllowed) {
-        this.maxDevicesAllowed = maxDevicesAllowed;
-    }
-
-    public boolean getActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    public boolean getActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 }
