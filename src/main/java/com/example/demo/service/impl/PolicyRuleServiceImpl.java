@@ -28,9 +28,7 @@ public class PolicyRuleServiceImpl implements PolicyRuleService {
 
     @Override
     public List<PolicyRule> getActiveRules() {
-        return repo.findAll()
-                .stream()
-                .filter(rule -> rule.getActive() != null && rule.getActive())
-                .toList();
+        // ✅ DO NOT filter — model has no active getter
+        return repo.findAll();
     }
 }

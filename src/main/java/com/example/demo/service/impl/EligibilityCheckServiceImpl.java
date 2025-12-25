@@ -16,6 +16,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         this.repository = repository;
     }
 
+    @Override
     public EligibilityCheckRecord save(EligibilityCheckRecord record) {
         return repository.save(record);
     }
