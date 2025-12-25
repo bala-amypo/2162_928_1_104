@@ -4,7 +4,10 @@ import com.example.demo.model.EmployeeProfile;
 import java.util.List;
 
 public interface EmployeeProfileService {
-    EmployeeProfile save(EmployeeProfile profile);
-    List<EmployeeProfile> getAll();
-    void updateEmployeeStatus(Long id, boolean active);
+
+    EmployeeProfile createEmployee(EmployeeProfile employee);
+
+    List<EmployeeProfile> getAllEmployees();
+
+    EmployeeProfile updateEmployeeStatus(Long id, boolean active);
 }
