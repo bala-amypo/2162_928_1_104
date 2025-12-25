@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "eligibility_check_record")
 public class EligibilityCheckRecord {
 
     @Id
@@ -12,16 +11,10 @@ public class EligibilityCheckRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceItemId;
-    private Boolean eligible;
-    private String reason;
+    private Long deviceId;
+    private Boolean isEligible;
 
-    private LocalDateTime checkedAt;
-
-    @PrePersist
-    public void onCreate() {
-        this.checkedAt = LocalDateTime.now();
-    }
+    private LocalDateTime createdAt;
 
     public Long getId() {
         return id;
@@ -35,31 +28,28 @@ public class EligibilityCheckRecord {
         this.employeeId = employeeId;
     }
 
-    public Long getDeviceItemId() {
-        return deviceItemId;
+    public Long getDeviceId() {
+        return deviceId;
     }
 
-    public void setDeviceItemId(Long deviceItemId) {
-        this.deviceItemId = deviceItemId;
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
     }
 
-    public Boolean getEligible() {
-        return eligible;
+    public Boolean getIsEligible() {
+        return isEligible;
     }
 
-    public void setEligible(Boolean eligible) {
-        this.eligible = eligible;
+    public void setIsEligible(Boolean isEligible) {
+        this.isEligible = isEligible;
     }
 
-    public String getReason() {
-        return reason;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public LocalDateTime getCheckedAt() {
-        return checkedAt;
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
     }
 }
