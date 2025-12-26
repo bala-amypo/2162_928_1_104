@@ -14,13 +14,13 @@ public class JwtTokenProvider {
     private final Key key;
     private final long validityInMs;
 
-    // ✅ REQUIRED FOR SPRING BOOT
+    // ✅ FIXED: secure key (>= 256 bits)
     public JwtTokenProvider() {
-        this.key = Keys.hmacShaKeyFor("test-secret-key-test-secret-key".getBytes());
+        this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         this.validityInMs = 3600000; // 1 hour
     }
 
-    // ✅ REQUIRED BY TESTS (DO NOT REMOVE)
+    // ✅ REQUIRED BY TESTS (DO NOT CHANGE)
     public JwtTokenProvider(String secret, long validityInMs) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
         this.validityInMs = validityInMs;
