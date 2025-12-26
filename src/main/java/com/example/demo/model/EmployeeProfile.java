@@ -22,7 +22,7 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // ✅ Tests expect String (email/username), NOT UserAccount
+    // ✅ Tests expect String (email/username)
     private String createdBy;
 
     @PrePersist
@@ -103,7 +103,15 @@ public class EmployeeProfile {
         return createdBy;
     }
 
+    // ✅ Used when String is passed
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
+    }
+
+    // ✅ REQUIRED BY TESTS (UserAccount → String bridge)
+    public void setCreatedBy(UserAccount userAccount) {
+        if (userAccount != null) {
+            this.createdBy = userAccount.getEmail();
+        }
     }
 }
