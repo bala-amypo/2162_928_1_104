@@ -47,4 +47,10 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     public List<IssuedDeviceRecord> getIssuedDevicesByEmployee(Long employeeId) {
         return issuedRepo.findByEmployeeId(employeeId);
     }
+
+    // 🔴 THIS METHOD WAS MISSING
+    @Override
+    public List<IssuedDeviceRecord> getAll() {
+        return issuedRepo.findAll();
+    }
 }
