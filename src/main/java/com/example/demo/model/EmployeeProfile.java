@@ -19,13 +19,10 @@ public class EmployeeProfile {
     private String jobRole;
 
     private Boolean active = true;
-
     private LocalDateTime createdAt;
 
-    // Tests expect String storage (email/username)
+    // Tests expect STRING storage
     private String createdBy;
-
-    // ================= CONSTRUCTORS =================
 
     public EmployeeProfile() {}
 
@@ -46,16 +43,12 @@ public class EmployeeProfile {
         this.createdBy = createdBy != null ? createdBy.getEmail() : null;
     }
 
-    // ================= JPA =================
-
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {
             createdAt = LocalDateTime.now();
         }
     }
-
-    // ================= GETTERS & SETTERS =================
 
     public Long getId() {
         return id;
@@ -132,7 +125,7 @@ public class EmployeeProfile {
         this.createdBy = createdBy;
     }
 
-    // REQUIRED BY TESTS
+    // 🔥 THIS IS THE KEY METHOD TESTS NEED
     public void setCreatedBy(UserAccount userAccount) {
         if (userAccount != null) {
             this.createdBy = userAccount.getEmail();
