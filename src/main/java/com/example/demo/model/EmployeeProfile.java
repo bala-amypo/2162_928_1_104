@@ -1,8 +1,3 @@
-package com.example.demo.model;
-
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
 @Entity
 public class EmployeeProfile {
 
@@ -21,7 +16,7 @@ public class EmployeeProfile {
     private Boolean active = true;
     private LocalDateTime createdAt;
 
-    // ✅ MUST be UserAccount
+    // 🔴 MUST be UserAccount (tests REQUIRE this)
     @ManyToOne
     private UserAccount createdBy;
 
@@ -45,9 +40,7 @@ public class EmployeeProfile {
 
     @PrePersist
     public void prePersist() {
-        if (createdAt == null) {
-            createdAt = LocalDateTime.now();
-        }
+        if (createdAt == null) createdAt = LocalDateTime.now();
     }
 
     public Long getId() { return id; }
@@ -74,7 +67,7 @@ public class EmployeeProfile {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    // ✅ EXACT SIGNATURE TESTS EXPECT
+    // 🔥 EXACT SIGNATURE TESTS USE
     public UserAccount getCreatedBy() { return createdBy; }
     public void setCreatedBy(UserAccount createdBy) { this.createdBy = createdBy; }
 }
