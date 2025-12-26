@@ -4,7 +4,7 @@ import com.example.demo.model.UserAccount;
 
 public interface AuthService {
 
-    UserAccount register(UserAccount user);
+    String register(UserAccount user);
 
     String login(UserAccount user);
 }

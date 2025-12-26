@@ -1,8 +1,5 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
-import com.example.demo.dto.RegisterRequest;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.UserAccount;
 import com.example.demo.repository.UserAccountRepository;
@@ -18,7 +15,6 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    // ✅ CONSTRUCTOR INJECTION (required by tests)
     public AuthServiceImpl(
             UserAccountRepository userRepo,
             PasswordEncoder passwordEncoder,
@@ -30,36 +26,26 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse register(RegisterRequest request) {
-        if (userRepo.findByEmail(request.getEmail()).isPresent()) {
+    public String register(UserAccount user) {
+        if (userRepo.findByEmail(user.getEmail()).isPresent()) {
             throw new BadRequestException("Email already exists");
         }
 
-        UserAccount user = new UserAccount();
-        user.setFullName(request.getFullName());
-        user.setEmail(request.getEmail());
-        user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole());
-        user.setActive(true);
-
+        user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
         userRepo.save(user);
 
-        // 🔥 FIX: pass UserAccount, NOT String
-        String token = jwtTokenProvider.generateToken(user);
-        return new AuthResponse(token);
+        return jwtTokenProvider.generateToken(user);
     }
 
     @Override
-    public AuthResponse login(AuthRequest request) {
-        UserAccount user = userRepo.findByEmail(request.getEmail())
+    public String login(UserAccount user) {
+        UserAccount existing = userRepo.findByEmail(user.getEmail())
                 .orElseThrow(() -> new BadRequestException("Invalid credentials"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPasswordHash())) {
+        if (!passwordEncoder.matches(user.getPasswordHash(), existing.getPasswordHash())) {
             throw new BadRequestException("Invalid credentials");
         }
 
-        // 🔥 FIX: pass UserAccount, NOT String
-        String token = jwtTokenProvider.generateToken(user);
-        return new AuthResponse(token);
+        return jwtTokenProvider.generateToken(existing);
     }
 }
