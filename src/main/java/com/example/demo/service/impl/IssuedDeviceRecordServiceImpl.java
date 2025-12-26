@@ -18,14 +18,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     private final EmployeeProfileRepository employeeRepo;
     private final DeviceCatalogItemRepository deviceRepo;
 
-    // ✅ REQUIRED BY SPRING
-    public IssuedDeviceRecordServiceImpl(IssuedDeviceRecordRepository issuedRepo) {
-        this.issuedRepo = issuedRepo;
-        this.employeeRepo = null;
-        this.deviceRepo = null;
-    }
-
-    // ✅ REQUIRED BY TESTS
+    // ✅ SINGLE constructor (Spring + Tests compatible)
     public IssuedDeviceRecordServiceImpl(
             IssuedDeviceRecordRepository issuedRepo,
             EmployeeProfileRepository employeeRepo,
@@ -39,8 +32,8 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     @Override
     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
 
-        if (record.getEmployeeId() == null) {
-            throw new BadRequestException("EmployeeId is required");
+        if (record.getEmployeeId() == null || record.getDeviceItemId() == null) {
+            throw new BadRequestException("EmployeeId and DeviceItemId are required");
         }
 
         record.setStatus("ISSUED");
@@ -57,8 +50,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         IssuedDeviceRecord record = issuedRepo.findById(recordId)
                 .orElseThrow(() -> new BadRequestException("Issued record not found"));
 
-        // ✅ FINAL TEST FIX
-        if (!record.isActive() || "RETURNED".equalsIgnoreCase(record.getStatus())) {
+        if (!record.isActive()) {
             throw new BadRequestException("Device already returned");
         }
 
