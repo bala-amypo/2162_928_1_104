@@ -22,7 +22,7 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // Tests expect String storage
+    // Tests expect String storage (email/username)
     private String createdBy;
 
     // ================= CONSTRUCTORS =================
@@ -61,7 +61,7 @@ public class EmployeeProfile {
         return id;
     }
 
-    // 🔴 REQUIRED BY TESTS
+    // REQUIRED BY TESTS
     public void setId(Long id) {
         this.id = id;
     }
