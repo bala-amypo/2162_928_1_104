@@ -12,12 +12,11 @@ public class IssuedDeviceRecord {
 
     private Long employeeId;
 
-    // 🔧 RENAMED (tests expect deviceId)
+    // ✅ INTERNAL FIELD (used by queries)
     private Long deviceId;
 
     private String status;
 
-    // 🔧 REQUIRED BY TESTS
     private boolean active = true;
 
     private LocalDateTime issuedAt;
@@ -31,8 +30,14 @@ public class IssuedDeviceRecord {
     public Long getEmployeeId() { return employeeId; }
     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
+    // ✅ REQUIRED BY SERVICE + HQL
     public Long getDeviceId() { return deviceId; }
     public void setDeviceId(Long deviceId) { this.deviceId = deviceId; }
+
+    // ✅ REQUIRED BY TESTS (BACKWARD COMPATIBILITY)
+    public void setDeviceItemId(Long deviceItemId) {
+        this.deviceId = deviceItemId;
+    }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
