@@ -10,34 +10,57 @@ public class EligibilityCheckRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long deviceItemId;
+    private Long employeeId;
+    private Long deviceId;
 
-    private boolean isEligible;
+    private Boolean eligible;
+
+    private String reason;
 
     private LocalDateTime checkedAt;
+
+    // ===== GETTERS =====
 
     public Long getId() {
         return id;
     }
 
-    public Long getDeviceItemId() {
-        return deviceItemId;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setDeviceItemId(Long deviceItemId) {
-        this.deviceItemId = deviceItemId;
+    public Long getDeviceId() {
+        return deviceId;
     }
 
-    public boolean getIsEligible() {
-        return isEligible;
+    public Boolean getEligible() {
+        return eligible;
     }
 
-    public void setIsEligible(boolean eligible) {
-        this.isEligible = eligible;
+    public String getReason() {
+        return reason;
     }
 
     public LocalDateTime getCheckedAt() {
         return checkedAt;
+    }
+
+    // ===== SETTERS =====
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public void setEligible(Boolean eligible) {
+        this.eligible = eligible;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public void setCheckedAt(LocalDateTime checkedAt) {
