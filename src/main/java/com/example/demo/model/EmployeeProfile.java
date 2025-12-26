@@ -25,11 +25,12 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // ✅ MUST BE STRING (as per test suite)
+    // ✅ Stored as STRING (what DB + JSON expect)
     private String createdBy;
 
     public EmployeeProfile() {}
 
+    // ✅ Constructor used by YOUR code
     public EmployeeProfile(
             String employeeId,
             String fullName,
@@ -46,6 +47,23 @@ public class EmployeeProfile {
         this.createdBy = createdBy;
     }
 
+    // ✅ Constructor used by TEST SUITE (VERY IMPORTANT)
+    public EmployeeProfile(
+            String employeeId,
+            String fullName,
+            String email,
+            String department,
+            String jobRole,
+            UserAccount createdBy
+    ) {
+        this.employeeId = employeeId;
+        this.fullName = fullName;
+        this.email = email;
+        this.department = department;
+        this.jobRole = jobRole;
+        this.createdBy = createdBy != null ? createdBy.getEmail() : null;
+    }
+
     @PrePersist
     public void prePersist() {
         if (createdAt == null) {
@@ -53,7 +71,8 @@ public class EmployeeProfile {
         }
     }
 
-    // Getters and Setters
+    // ===== GETTERS & SETTERS =====
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -79,5 +98,14 @@ public class EmployeeProfile {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
     public String getCreatedBy() { return createdBy; }
-    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+
+    // ✅ Setter used by YOUR services
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    // ✅ Setter used by TEST SUITE
+    public void setCreatedBy(UserAccount createdBy) {
+        this.createdBy = createdBy != null ? createdBy.getEmail() : null;
+    }
 }
