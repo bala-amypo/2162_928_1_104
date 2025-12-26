@@ -14,7 +14,10 @@ public class EmployeeProfile {
     private String employeeId;
 
     private String fullName;
+
+    @Column(unique = true)
     private String email;
+
     private String department;
     private String jobRole;
 
@@ -22,8 +25,8 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    private UserAccount createdBy;
+    // ✅ MUST BE STRING (as per test suite)
+    private String createdBy;
 
     public EmployeeProfile() {}
 
@@ -33,7 +36,7 @@ public class EmployeeProfile {
             String email,
             String department,
             String jobRole,
-            UserAccount createdBy
+            String createdBy
     ) {
         this.employeeId = employeeId;
         this.fullName = fullName;
@@ -75,6 +78,6 @@ public class EmployeeProfile {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public UserAccount getCreatedBy() { return createdBy; }
-    public void setCreatedBy(UserAccount createdBy) { this.createdBy = createdBy; }
+    public String getCreatedBy() { return createdBy; }
+    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
 }
