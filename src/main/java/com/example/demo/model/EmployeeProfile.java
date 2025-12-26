@@ -22,16 +22,14 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // ✅ Tests expect String, not UserAccount
+    // Tests expect String storage
     private String createdBy;
 
     // ================= CONSTRUCTORS =================
 
-    public EmployeeProfile() {
-        // JPA
-    }
+    public EmployeeProfile() {}
 
-    // 🔴 REQUIRED BY TESTS
+    // REQUIRED BY TESTS
     public EmployeeProfile(
             String employeeId,
             String fullName,
@@ -48,7 +46,7 @@ public class EmployeeProfile {
         this.createdBy = createdBy != null ? createdBy.getEmail() : null;
     }
 
-    // ================= JPA HOOK =================
+    // ================= JPA =================
 
     @PrePersist
     public void prePersist() {
@@ -61,6 +59,11 @@ public class EmployeeProfile {
 
     public Long getId() {
         return id;
+    }
+
+    // 🔴 REQUIRED BY TESTS
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmployeeId() {
@@ -115,7 +118,7 @@ public class EmployeeProfile {
         return createdAt;
     }
 
-    // 🔴 REQUIRED BY TESTS
+    // REQUIRED BY TESTS
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -124,11 +127,12 @@ public class EmployeeProfile {
         return createdBy;
     }
 
+    // REQUIRED BY TESTS
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    // 🔴 REQUIRED BY TESTS
+    // REQUIRED BY TESTS
     public void setCreatedBy(UserAccount userAccount) {
         if (userAccount != null) {
             this.createdBy = userAccount.getEmail();
