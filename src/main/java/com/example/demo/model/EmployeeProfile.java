@@ -22,8 +22,33 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // ✅ Tests expect String (email/username)
+    // ✅ Tests expect String, not UserAccount
     private String createdBy;
+
+    // ================= CONSTRUCTORS =================
+
+    public EmployeeProfile() {
+        // JPA
+    }
+
+    // 🔴 REQUIRED BY TESTS
+    public EmployeeProfile(
+            String employeeId,
+            String fullName,
+            String email,
+            String department,
+            String jobRole,
+            UserAccount createdBy
+    ) {
+        this.employeeId = employeeId;
+        this.fullName = fullName;
+        this.email = email;
+        this.department = department;
+        this.jobRole = jobRole;
+        this.createdBy = createdBy != null ? createdBy.getEmail() : null;
+    }
+
+    // ================= JPA HOOK =================
 
     @PrePersist
     public void prePersist() {
@@ -32,14 +57,10 @@ public class EmployeeProfile {
         }
     }
 
-    // ===== GETTERS & SETTERS =====
+    // ================= GETTERS & SETTERS =================
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmployeeId() {
@@ -94,7 +115,7 @@ public class EmployeeProfile {
         return createdAt;
     }
 
-    // ✅ REQUIRED BY TESTS
+    // 🔴 REQUIRED BY TESTS
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -103,12 +124,11 @@ public class EmployeeProfile {
         return createdBy;
     }
 
-    // ✅ Used when String is passed
     public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
-    // ✅ REQUIRED BY TESTS (UserAccount → String bridge)
+    // 🔴 REQUIRED BY TESTS
     public void setCreatedBy(UserAccount userAccount) {
         if (userAccount != null) {
             this.createdBy = userAccount.getEmail();
