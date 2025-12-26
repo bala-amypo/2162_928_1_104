@@ -25,11 +25,12 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    // Stored as String in DB
+    // Stored as STRING in DB
     private String createdBy;
 
     public EmployeeProfile() {}
 
+    // ✅ ONLY constructor
     public EmployeeProfile(
             String employeeId,
             String fullName,
@@ -54,7 +55,6 @@ public class EmployeeProfile {
     }
 
     // ===== GETTERS =====
-
     public Long getId() { return id; }
     public String getEmployeeId() { return employeeId; }
     public String getFullName() { return fullName; }
@@ -66,7 +66,6 @@ public class EmployeeProfile {
     public String getCreatedBy() { return createdBy; }
 
     // ===== SETTERS =====
-
     public void setId(Long id) { this.id = id; }
     public void setEmployeeId(String employeeId) { this.employeeId = employeeId; }
     public void setFullName(String fullName) { this.fullName = fullName; }
@@ -76,7 +75,7 @@ public class EmployeeProfile {
     public void setActive(Boolean active) { this.active = active; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    // 🔥 THIS IS THE KEY FIX
+    // 🔥 ONLY setter (no String version)
     public void setCreatedBy(Object createdBy) {
         if (createdBy instanceof UserAccount) {
             this.createdBy = ((UserAccount) createdBy).getEmail();
