@@ -39,7 +39,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     @Override
     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
 
-        if (record.getEmployeeId() == null || record.getDeviceId() == null) {
+        if (record.getEmployeeId() == null || record.getDeviceItemId() == null) {
             throw new BadRequestException("EmployeeId and DeviceId are required");
         }
 
@@ -57,7 +57,8 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         IssuedDeviceRecord record = issuedRepo.findById(recordId)
                 .orElseThrow(() -> new BadRequestException("Issued record not found"));
 
-        if (!record.isActive()) {
+        // ✅ FINAL FIX — handles BOTH cases correctly
+        if (!record.isActive() || "RETURNED".equalsIgnoreCase(record.getStatus())) {
             throw new BadRequestException("Device already returned");
         }
 
