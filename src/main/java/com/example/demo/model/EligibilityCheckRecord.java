@@ -12,7 +12,6 @@ public class EligibilityCheckRecord {
 
     private Long employeeId;
 
-    // TEST EXPECTS deviceItemId (not deviceId)
     private Long deviceItemId;
 
     private Boolean isEligible;
@@ -70,9 +69,5 @@ public class EligibilityCheckRecord {
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public void setCheckedAt(LocalDateTime checkedAt) {
-        this.checkedAt = checkedAt;
     }
 }

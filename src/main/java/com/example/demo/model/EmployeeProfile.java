@@ -21,6 +21,17 @@ public class EmployeeProfile {
     private Boolean active = true;
     private LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "created_by")
+    private UserAccount createdBy;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
+        }
+    }
+
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }
@@ -45,5 +56,7 @@ public class EmployeeProfile {
     public void setActive(Boolean active) { this.active = active; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public UserAccount getCreatedBy() { return createdBy; }
+    public void setCreatedBy(UserAccount createdBy) { this.createdBy = createdBy; }
 }
