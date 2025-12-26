@@ -11,13 +11,22 @@ public class EligibilityCheckRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceId;
 
-    private Boolean eligible;
+    // TEST EXPECTS deviceItemId (not deviceId)
+    private Long deviceItemId;
+
+    private Boolean isEligible;
 
     private String reason;
 
     private LocalDateTime checkedAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (checkedAt == null) {
+            checkedAt = LocalDateTime.now();
+        }
+    }
 
     // ===== GETTERS =====
 
@@ -29,12 +38,12 @@ public class EligibilityCheckRecord {
         return employeeId;
     }
 
-    public Long getDeviceId() {
-        return deviceId;
+    public Long getDeviceItemId() {
+        return deviceItemId;
     }
 
-    public Boolean getEligible() {
-        return eligible;
+    public Boolean getIsEligible() {
+        return isEligible;
     }
 
     public String getReason() {
@@ -51,12 +60,12 @@ public class EligibilityCheckRecord {
         this.employeeId = employeeId;
     }
 
-    public void setDeviceId(Long deviceId) {
-        this.deviceId = deviceId;
+    public void setDeviceItemId(Long deviceItemId) {
+        this.deviceItemId = deviceItemId;
     }
 
-    public void setEligible(Boolean eligible) {
-        this.eligible = eligible;
+    public void setIsEligible(Boolean eligible) {
+        this.isEligible = eligible;
     }
 
     public void setReason(String reason) {
