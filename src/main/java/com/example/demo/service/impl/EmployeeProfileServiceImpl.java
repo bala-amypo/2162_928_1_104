@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.EmployeeProfile;
 import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
@@ -18,13 +20,22 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
     @Override
     public EmployeeProfile createEmployee(EmployeeProfile employee) {
+
+        // ✅ REQUIRED: Duplicate employeeId check
+        repository.findByEmployeeId(employee.getEmployeeId())
+                .ifPresent(e -> {
+                    throw new BadRequestException("EmployeeId already exists");
+                });
+
         return repository.save(employee);
     }
 
     @Override
     public EmployeeProfile getEmployeeById(long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Employee not found")
+                );
     }
 
     @Override
