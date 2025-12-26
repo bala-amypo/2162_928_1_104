@@ -15,13 +15,13 @@ public class AuthController {
         this.authService = authService;
     }
 
-    // Register user
+    // Register user → returns JWT token
     @PostMapping("/register")
-    public ResponseEntity<UserAccount> register(@RequestBody UserAccount user) {
+    public ResponseEntity<String> register(@RequestBody UserAccount user) {
         return ResponseEntity.ok(authService.register(user));
     }
 
-    // Login -> returns JWT token (String)
+    // Login → returns JWT token
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody UserAccount user) {
         return ResponseEntity.ok(authService.login(user));
