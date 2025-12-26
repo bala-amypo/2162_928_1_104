@@ -8,6 +8,5 @@ import java.util.List;
 public interface EligibilityCheckRecordRepository
         extends JpaRepository<EligibilityCheckRecord, Long> {
 
-    // REQUIRED BY TESTS
     List<EligibilityCheckRecord> findByEmployeeId(Long employeeId);
 }
