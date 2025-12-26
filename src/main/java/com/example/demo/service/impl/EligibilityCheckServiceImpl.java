@@ -41,7 +41,6 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         Optional<EmployeeProfile> empOpt = employeeRepo.findById(employeeId);
         Optional<DeviceCatalogItem> devOpt = deviceRepo.findById(deviceItemId);
 
-        // 1️⃣ Employee or device not found
         if (empOpt.isEmpty() || devOpt.isEmpty()) {
             record.setIsEligible(false);
             record.setReason("Employee or device not found");
@@ -51,21 +50,18 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
         EmployeeProfile emp = empOpt.get();
         DeviceCatalogItem dev = devOpt.get();
 
-        // 2️⃣ Employee inactive
         if (!emp.getActive()) {
             record.setIsEligible(false);
             record.setReason("Employee not active");
             return eligibilityRepo.save(record);
         }
 
-        // 3️⃣ Device inactive
         if (!dev.getActive()) {
             record.setIsEligible(false);
             record.setReason("Device inactive");
             return eligibilityRepo.save(record);
         }
 
-        // 4️⃣ Active issuance exists
         if (!issuedRepo.findActiveByEmployeeAndDevice(employeeId, deviceItemId).isEmpty()) {
             record.setIsEligible(false);
             record.setReason("Active issuance already exists");
@@ -74,16 +70,13 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
 
         long activeCount = issuedRepo.countActiveDevicesForEmployee(employeeId);
 
-        // 5️⃣ Max allowed devices reached
         if (activeCount >= dev.getMaxAllowedPerEmployee()) {
             record.setIsEligible(false);
             record.setReason("Maximum allowed devices reached");
             return eligibilityRepo.save(record);
         }
 
-        // 6️⃣ Policy rule violation
-        List<PolicyRule> rules = policyRepo.findByActiveTrue();
-        for (PolicyRule rule : rules) {
+        for (PolicyRule rule : policyRepo.findByActiveTrue()) {
 
             boolean deptMatch = rule.getAppliesToDepartment() == null ||
                     rule.getAppliesToDepartment().equals(emp.getDepartment());
@@ -91,7 +84,7 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             boolean roleMatch = rule.getAppliesToRole() == null ||
                     rule.getAppliesToRole().equals(emp.getJobRole());
 
-            if (deptMatch && roleMatch && rule.getMaxDevicesAllowed() != null) {
+            if (deptMatch && roleMatch) {
                 if (activeCount >= rule.getMaxDevicesAllowed()) {
                     record.setIsEligible(false);
                     record.setReason("Policy violation");
@@ -100,7 +93,6 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
             }
         }
 
-        // 7️⃣ Eligible
         record.setIsEligible(true);
         record.setReason("Eligible");
         return eligibilityRepo.save(record);
@@ -109,5 +101,10 @@ public class EligibilityCheckServiceImpl implements EligibilityCheckService {
     @Override
     public List<EligibilityCheckRecord> getChecksByEmployee(Long employeeId) {
         return eligibilityRepo.findByEmployeeId(employeeId);
+    }
+
+    @Override
+    public List<EligibilityCheckRecord> getAll() {
+        return eligibilityRepo.findAll();
     }
 }

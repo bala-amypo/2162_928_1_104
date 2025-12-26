@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.DeviceCatalogItem;
 import com.example.demo.repository.DeviceCatalogItemRepository;
 import com.example.demo.service.DeviceCatalogService;
@@ -10,26 +11,37 @@ import java.util.List;
 @Service
 public class DeviceCatalogServiceImpl implements DeviceCatalogService {
 
-    private final DeviceCatalogItemRepository repo;
+    private final DeviceCatalogItemRepository deviceRepo;
 
-    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository repo) {
-        this.repo = repo;
+    public DeviceCatalogServiceImpl(DeviceCatalogItemRepository deviceRepo) {
+        this.deviceRepo = deviceRepo;
     }
 
     @Override
     public DeviceCatalogItem createItem(DeviceCatalogItem item) {
-        return repo.save(item);
+
+        if (item.getMaxAllowedPerEmployee() <= 0) {
+            throw new BadRequestException("maxAllowedPerEmployee must be greater than zero");
+        }
+
+        deviceRepo.findByDeviceCode(item.getDeviceCode())
+                .ifPresent(d -> {
+                    throw new BadRequestException("Device code already exists");
+                });
+
+        return deviceRepo.save(item);
     }
 
     @Override
     public List<DeviceCatalogItem> getAllItems() {
-        return repo.findAll();
+        return deviceRepo.findAll();
     }
 
     @Override
     public DeviceCatalogItem updateActiveStatus(Long id, boolean active) {
-        DeviceCatalogItem item = repo.findById(id).orElseThrow();
+        DeviceCatalogItem item = deviceRepo.findById(id)
+                .orElseThrow(() -> new BadRequestException("Device not found"));
         item.setActive(active);
-        return repo.save(item);
+        return deviceRepo.save(item);
     }
 }
