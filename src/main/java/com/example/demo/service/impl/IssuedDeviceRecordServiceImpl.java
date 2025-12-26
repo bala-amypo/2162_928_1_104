@@ -18,7 +18,6 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     private final EmployeeProfileRepository employeeRepo;
     private final DeviceCatalogItemRepository deviceRepo;
 
-    // ✅ Single constructor (Spring + Tests compatible)
     public IssuedDeviceRecordServiceImpl(
             IssuedDeviceRecordRepository issuedRepo,
             EmployeeProfileRepository employeeRepo,
@@ -50,7 +49,10 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         IssuedDeviceRecord record = issuedRepo.findById(recordId)
                 .orElseThrow(() -> new BadRequestException("Issued record not found"));
 
-        if (!record.isActive()) {
+        // ✅ FIX: Cover ALL "already returned" cases
+        if (!record.isActive()
+                || "RETURNED".equalsIgnoreCase(record.getStatus())
+                || record.getReturnedDate() != null) {
             throw new BadRequestException("Device already returned");
         }
 
