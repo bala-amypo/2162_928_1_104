@@ -5,8 +5,6 @@ import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
@@ -22,21 +20,15 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
     }
 
     @Override
-    public EmployeeProfile updateEmployeeStatus(long employeeId, boolean active) {
-        EmployeeProfile emp = repository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
-        emp.setActive(active);
-        return repository.save(emp);
-    }
-
-    @Override
     public EmployeeProfile getEmployeeById(long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found"));
     }
 
     @Override
-    public List<EmployeeProfile> getAllEmployees() {
-        return repository.findAll();
+    public EmployeeProfile updateEmployeeStatus(long id, boolean active) {
+        EmployeeProfile emp = getEmployeeById(id);
+        emp.setActive(active);
+        return repository.save(emp);
     }
 }
