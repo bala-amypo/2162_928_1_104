@@ -21,11 +21,12 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     @Override
     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
 
-        if (record.getEmployeeId() == null || record.getDeviceItemId() == null) {
-            throw new BadRequestException("EmployeeId and DeviceItemId are required");
+        if (record.getEmployeeId() == null || record.getDeviceId() == null) {
+            throw new BadRequestException("EmployeeId and DeviceId are required");
         }
 
         record.setStatus("ISSUED");
+        record.setActive(true);
         record.setIssuedAt(LocalDateTime.now());
         record.setReturnedDate(null);
 
@@ -38,11 +39,12 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
         IssuedDeviceRecord record = repository.findById(recordId)
                 .orElseThrow(() -> new BadRequestException("Issued record not found"));
 
-        if ("RETURNED".equalsIgnoreCase(record.getStatus())) {
+        if (!record.isActive()) {
             throw new BadRequestException("Device already returned");
         }
 
         record.setStatus("RETURNED");
+        record.setActive(false);
         record.setReturnedDate(LocalDateTime.now());
 
         return repository.save(record);
