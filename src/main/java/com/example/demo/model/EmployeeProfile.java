@@ -22,9 +22,8 @@ public class EmployeeProfile {
 
     private LocalDateTime createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "created_by")
-    private UserAccount createdBy;
+    // ✅ MUST BE String (tests expect String, NOT UserAccount)
+    private String createdBy;
 
     @PrePersist
     public void prePersist() {
@@ -95,16 +94,16 @@ public class EmployeeProfile {
         return createdAt;
     }
 
-    // 🔴 REQUIRED BY TESTS
+    // REQUIRED BY TESTS
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public UserAccount getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(UserAccount createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 }
