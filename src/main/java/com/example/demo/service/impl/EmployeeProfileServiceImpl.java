@@ -5,6 +5,8 @@ import com.example.demo.repository.EmployeeProfileRepository;
 import com.example.demo.service.EmployeeProfileService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeProfileServiceImpl implements EmployeeProfileService {
 
@@ -30,5 +32,10 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService {
         EmployeeProfile emp = getEmployeeById(id);
         emp.setActive(active);
         return repository.save(emp);
+    }
+
+    @Override
+    public List<EmployeeProfile> getAllEmployees() {
+        return repository.findAll();
     }
 }
