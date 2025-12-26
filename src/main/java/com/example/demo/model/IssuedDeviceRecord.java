@@ -11,8 +11,15 @@ public class IssuedDeviceRecord {
     private Long id;
 
     private Long employeeId;
-    private Long deviceItemId;
+
+    // 🔧 RENAMED (tests expect deviceId)
+    private Long deviceId;
+
     private String status;
+
+    // 🔧 REQUIRED BY TESTS
+    private boolean active = true;
+
     private LocalDateTime issuedAt;
     private LocalDateTime returnedDate;
 
@@ -24,11 +31,14 @@ public class IssuedDeviceRecord {
     public Long getEmployeeId() { return employeeId; }
     public void setEmployeeId(Long employeeId) { this.employeeId = employeeId; }
 
-    public Long getDeviceItemId() { return deviceItemId; }
-    public void setDeviceItemId(Long deviceItemId) { this.deviceItemId = deviceItemId; }
+    public Long getDeviceId() { return deviceId; }
+    public void setDeviceId(Long deviceId) { this.deviceId = deviceId; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
     public LocalDateTime getIssuedAt() { return issuedAt; }
     public void setIssuedAt(LocalDateTime issuedAt) { this.issuedAt = issuedAt; }
