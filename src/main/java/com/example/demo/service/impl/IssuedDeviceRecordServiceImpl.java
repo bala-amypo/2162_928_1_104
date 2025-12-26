@@ -18,7 +18,7 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     private final EmployeeProfileRepository employeeRepo;
     private final DeviceCatalogItemRepository deviceRepo;
 
-    // ✅ SINGLE constructor (Spring + Tests compatible)
+    // ✅ Single constructor (Spring + Tests compatible)
     public IssuedDeviceRecordServiceImpl(
             IssuedDeviceRecordRepository issuedRepo,
             EmployeeProfileRepository employeeRepo,
@@ -32,8 +32,8 @@ public class IssuedDeviceRecordServiceImpl implements IssuedDeviceRecordService 
     @Override
     public IssuedDeviceRecord issueDevice(IssuedDeviceRecord record) {
 
-        if (record.getEmployeeId() == null || record.getDeviceItemId() == null) {
-            throw new BadRequestException("EmployeeId and DeviceItemId are required");
+        if (record.getEmployeeId() == null) {
+            throw new BadRequestException("EmployeeId is required");
         }
 
         record.setStatus("ISSUED");
