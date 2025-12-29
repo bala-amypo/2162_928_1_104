@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/employees") // ✅ REQUIRED PATH
+@RequestMapping("/api/employees") 
 public class EmployeeProfileController {
 
     private final EmployeeProfileService service;
@@ -16,25 +16,25 @@ public class EmployeeProfileController {
         this.service = service;
     }
 
-    // POST /api/employees
+    
     @PostMapping
     public EmployeeProfile create(@RequestBody EmployeeProfile employee) {
         return service.createEmployee(employee);
     }
 
-    // GET /api/employees/{id}
+    
     @GetMapping("/{id}")
     public EmployeeProfile getById(@PathVariable long id) {
         return service.getEmployeeById(id);
     }
 
-    // GET /api/employees
+    
     @GetMapping
     public List<EmployeeProfile> getAll() {
         return service.getAllEmployees();
     }
 
-    // PUT /api/employees/{id}/status
+    
     @PutMapping("/{id}/status")
     public EmployeeProfile updateStatus(
             @PathVariable long id,

@@ -53,7 +53,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())   // 🔥 REQUIRED for Swagger POST
+            .csrf(csrf -> csrf.disable())   
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/api/auth/register",
@@ -61,7 +61,7 @@ public class SecurityConfig {
                     "/swagger-ui/**",
                     "/v3/api-docs/**"
                 ).permitAll()
-                .anyRequest().permitAll()   // 🔥 allow all APIs for demo
+                .anyRequest().permitAll()   
             )
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable());
