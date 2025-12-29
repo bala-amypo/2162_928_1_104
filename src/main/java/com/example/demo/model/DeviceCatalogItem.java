@@ -20,7 +20,7 @@ public class DeviceCatalogItem {
 
     private boolean active = true;
 
-    // ===== GETTERS & SETTERS =====
+    
 
     public Long getId() {
         return id;
